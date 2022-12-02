@@ -1,0 +1,37 @@
+﻿Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{EDC6B052-83B1-4EC9-BDB3-4B21621C64CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CCD55D63-AE8B-463D-99E6-9E8E38FB9C78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanSpaceGame.Application", "src\Core\LanSpaceGame.Application\LanSpaceGame.Application.csproj", "{C724037C-A2D5-4A48-B07E-42BBD68D316F}"
+EndProject
+Project("{C903FC9E-213D-5EF6-4801-39EE65C37C72}") = "LanSpaceGameUnityClient", "src\Presentation\LanSpaceGameUnityClient\Assembly-CSharp.csproj", "{B7A7EAD8-F5D8-D489-9D50-925182AB2915}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C724037C-A2D5-4A48-B07E-42BBD68D316F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C724037C-A2D5-4A48-B07E-42BBD68D316F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C724037C-A2D5-4A48-B07E-42BBD68D316F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C724037C-A2D5-4A48-B07E-42BBD68D316F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7A7EAD8-F5D8-D489-9D50-925182AB2915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7A7EAD8-F5D8-D489-9D50-925182AB2915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7A7EAD8-F5D8-D489-9D50-925182AB2915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7A7EAD8-F5D8-D489-9D50-925182AB2915}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C724037C-A2D5-4A48-B07E-42BBD68D316F} = {CCD55D63-AE8B-463D-99E6-9E8E38FB9C78}
+		{B7A7EAD8-F5D8-D489-9D50-925182AB2915} = {EDC6B052-83B1-4EC9-BDB3-4B21621C64CB}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
