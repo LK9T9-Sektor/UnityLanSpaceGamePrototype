@@ -1,91 +1,96 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class Combat : NetworkBehaviour {
-	
-	[SyncVar(hook="OnDamage")]
-	public int health = 100;
+public class Combat : NetworkBehaviour
+{
+    [SyncVar(hook = "OnDamage")]
+    public int health = 100;
 
-	public string playerName = "ThePilot";
-	public bool canRespawn = true;
-	
-	public Texture box;
-	public GameObject explosionPrefab;
-	
-	void OnDamage(int newHealth)
-	{
-		if (newHealth < 100)
-		{
-			MakeExplosion(0.3f);
-		}
-		health = newHealth;
-	}
 
-	public override void OnNetworkDestroy()
-	{
-		MakeExplosion(1.6f);
-	}
+    public string playerName = "Player";
+    public bool canRespawn = true;
 
-	public void TakeDamage(int amount)
-	{
-		if (!isServer)
-			return;
+    public Texture box;
+    public GameObject explosionPrefab;
 
-		health = health - amount;
-		
-		if (health <= 0)
-		{
-			if (canRespawn)
-			{
-				health = 100;
+	// called on a client and server-client
+    void OnDamage(int newHealth)
+    {
+        if (newHealth < 100)
+        {
+            MakeExplosion(0.3f);
+        }
+        health = newHealth;
+    }
 
-				RpcRespawn ();
-			}
-			else
-			{
-				Destroy (gameObject);
-			}
-		}
-	}
-	
-	void MakeExplosion(float length)
-	{
-		GameObject exp = (GameObject)Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-		Destroy(exp, length);
-	}
-	
-	[ClientRpc]
-	void RpcRespawn()
-	{
-		MakeExplosion(2.0f);
-		if (isLocalPlayer)
-		{
-			transform.position = Vector3.zero;
-			GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-			GetComponent<Rigidbody2D>().angularVelocity = 0;	
-		}
-	}
-	
-	void OnGUI()
-	{
-		Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
-		
-		// draw the name with a shadow (colored for buf)	
-		GUI.color = Color.black;
-		GUI.Label(new Rect(pos.x-20, Screen.height - pos.y - 40, 100, 30), playerName);
-		
-		GUI.color = Color.white;
-		GUI.Label(new Rect(pos.x-21, Screen.height - pos.y - 41, 100, 30), playerName);		
-		
-		// draw health bar background
-		GUI.color = Color.grey;
-		GUI.DrawTexture (new Rect(pos.x-26, Screen.height - pos.y + 20, 52, 7), box);
-		
-		// draw health bar amount
-		GUI.color = Color.green;
-		GUI.DrawTexture (new Rect(pos.x-25, Screen.height - pos.y + 21, health/2, 5), box);	
-	}
-	/*
+    public override void OnNetworkDestroy()
+    {
+        MakeExplosion(1.6f);
+    }
+
+	// work on a server, do nothing on a client
+    public void TakeDamage(int amount)
+    {
+        if (!isServer)
+            return;
+
+        health -= amount;
+
+        if (health <= 0)
+        {
+            if (canRespawn)
+            {
+                health = 100;
+
+                RpcRespawn();
+            }
+            else
+            {
+                gameObject.SetActive(false);
+                //Destroy(gameObject);
+            }
+        }
+    }
+
+    void MakeExplosion(float length)
+    {
+        GameObject exp = (GameObject)Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        Destroy(exp, length);
+    }
+
+	// called on a server, invoke on a clients
+    [ClientRpc]
+    void RpcRespawn()
+    {
+        MakeExplosion(2.0f);
+        if (isLocalPlayer)
+        {
+            transform.position = Vector3.zero;
+            GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            GetComponent<Rigidbody2D>().angularVelocity = 0;
+        }
+    }
+
+    void OnGUI()
+    {
+        Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
+
+        // draw the name with a shadow (colored for buf)	
+        GUI.color = Color.black;
+        GUI.Label(new Rect(pos.x - 20, Screen.height - pos.y - 40, 100, 30), playerName);
+
+        GUI.color = Color.white;
+        GUI.Label(new Rect(pos.x - 21, Screen.height - pos.y - 41, 100, 30), playerName);
+
+        // draw health bar background
+        GUI.color = Color.grey;
+        GUI.DrawTexture(new Rect(pos.x - 26, Screen.height - pos.y + 20, 52, 7), box);
+
+        // draw health bar amount
+        GUI.color = Color.green;
+        GUI.DrawTexture(new Rect(pos.x - 25, Screen.height - pos.y + 21, health / 2, 5), box);
+    }
+    /*
 		// Combat
 	public bool xxOnSerializeVars(NetworkWriter writer, int channelId, bool forceAll)
 	{
@@ -156,7 +161,7 @@ public class Combat : NetworkBehaviour {
 	}
 
 	*/
-	/*
+    /*
 		// Combat
 	public  bool yyyOnSerializeVars(NetworkWriter writer, int channelId, bool forceAll)
 	{
@@ -233,8 +238,8 @@ public class Combat : NetworkBehaviour {
 		return flag;
 	}
 	*/
-	
-	/*
+
+    /*
 		// Combat
 	public  bool zzzOnSerializeVars(NetworkWriter writer, int channelId, bool forceAll)
 	{
@@ -368,4 +373,3 @@ public class Combat : NetworkBehaviour {
 	}
 	*/
 }
-

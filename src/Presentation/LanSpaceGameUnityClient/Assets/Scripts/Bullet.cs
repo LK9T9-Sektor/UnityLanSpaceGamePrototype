@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 
 public class Bullet : MonoBehaviour
 {
@@ -19,4 +18,5 @@ public class Bullet : MonoBehaviour
 	{
 		Debug.Log("Bullet start:" + SpaceManager.Now());
 	}
+
 }
