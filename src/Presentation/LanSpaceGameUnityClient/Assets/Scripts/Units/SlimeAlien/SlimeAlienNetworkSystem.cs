@@ -28,7 +28,7 @@ namespace Assets.Scripts.Units.SlimeAlien
 
                 if (alien.Value.PlayerTarget != null)
                 {
-                    Vector2 diff = (Vector2)(alien.Value.transform.position - transform.position).normalized;
+                    Vector2 diff = (Vector2)(alien.Value.PlayerTarget.transform.position - alien.Value.transform.position).normalized;
 
                     alien.Key.GetComponent<Rigidbody2D>().AddForce(diff * Time.fixedDeltaTime * 20);
                 }

@@ -60,9 +60,10 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PowerUpFeature\PowerUpNetworkSystem.cs" />
     <Compile Include="Assets\Scripts\ScrollRectExtension.cs" />
-    <Compile Include="Assets\Scripts\SlimeAlien.cs" />
-    <Compile Include="Assets\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Scripts\Units\SlimeAlien\SlimeAlienUnit.cs" />
+    <Compile Include="Assets\Scripts\Units\SlimeAlien\SlimeAlienSpawner.cs" />
     <Compile Include="Assets\Scripts\SpaceManager.cs" />
+    <Compile Include="Assets\Scripts\Units\SlimeAlien\SlimeAlienNetworkSystem.cs" />
     <Compile Include="Assets\Scripts\Views\MainView.cs" />
   </ItemGroup>
   <ItemGroup />
