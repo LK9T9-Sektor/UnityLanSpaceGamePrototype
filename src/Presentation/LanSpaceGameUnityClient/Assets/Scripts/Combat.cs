@@ -6,6 +6,15 @@ public class Combat : NetworkBehaviour
     [SyncVar(hook = "OnDamage")]
     public int health = 100;
 
+	/// <summary>
+	/// Меняет видимость гейм-объекта с данным скриптом. Вызывается сервером, исполняется на клиентах
+	/// </summary>
+	/// <param name="active"></param>
+    [ClientRpc]
+    public void RpcSetActive(bool active)
+    {
+        gameObject.SetActive(active);
+    }
 
     public string playerName = "Player";
     public bool canRespawn = true;
@@ -46,8 +55,7 @@ public class Combat : NetworkBehaviour
             }
             else
             {
-                gameObject.SetActive(false);
-                //Destroy(gameObject);
+                RpcSetActive(false);
             }
         }
     }
@@ -58,7 +66,6 @@ public class Combat : NetworkBehaviour
         Destroy(exp, length);
     }
 
-	// called on a server, invoke on a clients
     [ClientRpc]
     void RpcRespawn()
     {
@@ -122,13 +129,8 @@ public class Combat : NetworkBehaviour
 			}
 		}
 
-
-
 		if (channelId == 1)
 		{
-			
-
-
 			if ((this.m_DirtyBits & 8u) != 0u)
 			{
 				writer.Write(this.otherFloat);

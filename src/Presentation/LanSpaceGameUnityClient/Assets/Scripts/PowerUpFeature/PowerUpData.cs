@@ -5,11 +5,9 @@ namespace Assets.Scripts.PowerUpFeature
 {
     public class PowerUpData : NetworkBehaviour
     {
-        [SyncVar]
-        public string Name;
+        [SyncVar] public string Name;
 
-        [SyncVar]
-        public Color Color;
+        [SyncVar] public Color Color;
 
         public PowerUpNetworkSystem PowerUpNetworkSystem;
 
@@ -26,10 +24,8 @@ namespace Assets.Scripts.PowerUpFeature
             GUI.Label(new Rect(pos.x - 20, Screen.height - pos.y - 30, 100, 30), Name);
         }
 
-        void OnTriggerEnter2D(Collider2D col)
+        void OnTriggerEnter2D(Collider2D collided)
         {
-            if (!col.CompareTag("Player")) { return; }
-
             Debug.Log(typeof(PowerUpData).Name + " | OnTriggerEnter2D");
             if (!NetworkServer.active) { return; }
 
@@ -41,7 +37,17 @@ namespace Assets.Scripts.PowerUpFeature
             //}
 
             if (PowerUpNetworkSystem != null)
-                PowerUpNetworkSystem.OnEnterTrigger(gameObject);
+                PowerUpNetworkSystem.OnEnterTrigger(collided, gameObject);
+        }
+
+        /// <summary>
+        /// Меняет видимость гейм-объекта с данным скриптом. Вызывается сервером, исполняется на клиентах
+        /// </summary>
+        /// <param name="active"></param>
+        [ClientRpc]
+        public void RpcSetActive(bool active)
+        {
+            gameObject.SetActive(active);
         }
 
     }

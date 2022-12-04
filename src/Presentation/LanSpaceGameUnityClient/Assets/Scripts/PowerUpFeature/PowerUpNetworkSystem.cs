@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Game;
+using Assets.Scripts.Rotation;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.PowerUpFeature
 {
@@ -62,6 +65,8 @@ namespace Assets.Scripts.PowerUpFeature
                 GameObject powerUp = (GameObject)Instantiate(_powerUp, pos, Quaternion.identity);
                 _objectsPool.Add(powerUp);
 
+                GameWorldHandler.Singleton.Components.Add(powerUp);
+
                 var powerUpComponent = powerUp.GetComponent<PowerUpData>();
                 powerUpComponent.Name = name;
                 powerUpComponent.Color = color;
@@ -86,12 +91,11 @@ namespace Assets.Scripts.PowerUpFeature
             //AudioSource.PlayClipAtPoint(GetComponent<AudioSource>().clip, transform.position);
         }
 
-        public void OnEnterTrigger(GameObject obj)
+        public void OnEnterTrigger(Collider2D collided, GameObject powerUp)
         {
-            if (!NetworkServer.active)
-            {
-                return;
-            }
+            if (!collided.CompareTag("Player")) { return; }
+
+            if (!NetworkServer.active) { return; }
 
             //ShipControl s = other.gameObject.GetComponent<ShipControl>();
             //if (s != null)
@@ -99,12 +103,18 @@ namespace Assets.Scripts.PowerUpFeature
             //s.AddBuf(mbuf);
             //Destroy(gameObject);
             //}
-            Debug.Log(typeof(PowerUpNetworkSystem).Name + " | gameObject: " + obj);
 
-            var audioSource = obj.GetComponent<AudioSource>().clip;
-            AudioSource.PlayClipAtPoint(audioSource, obj.transform.position);
+            var textComponent = collided.GetComponent<Text>();
+            if (textComponent != null)
+            {
+                textComponent.color = powerUp.GetComponent<PowerUpData>().Color;
+            }
 
-            obj.SetActive(false);
+            var audioSource = powerUp.GetComponent<AudioSource>().clip;
+            AudioSource.PlayClipAtPoint(audioSource, powerUp.transform.position);
+
+            // Прячем powerUp у клиентов
+            powerUp.GetComponent<PowerUpData>().RpcSetActive(false);
         }
 
         void OnDestroy()

@@ -5,10 +5,16 @@ namespace Assets.Scripts.Units.SlimeAlien
 {
     public class SlimeAlienUnit : NetworkBehaviour
     {
-        public int Health;
+        [SyncVar] public int Health;
+
         public GameObject PlayerTarget;
 
         public SlimeAlienNetworkSystem SlimeAlienNetworkSystem;
+
+        private void Awake()
+        {
+
+        }
 
         void OnCollisionEnter2D(Collision2D collider)
         {

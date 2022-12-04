@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Name;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using UnityEngine;
@@ -81,23 +82,23 @@ public class SpaceManager : NetworkManager
     // Menu Scene Button OnClick
     public void StartGame()
     {
-        NetworkManager.singleton.StartHost();
+        singleton.StartHost();
     }
 
     public void JoinGame()
     {
-        NetworkManager.singleton.StartClient();
+        singleton.StartClient();
     }
 
     private readonly StringBuilder _stringBuilder = new StringBuilder();
 
     private void SetPlayerNameWithConnId(GameObject player, short playerControllerId)
     {
-        var combat = player.GetComponent<Combat>();
+        var nameComponent = player.GetComponent<NameComponent>();
 
-        _stringBuilder.Append(" №");
+        _stringBuilder.Append("Player №");
         _stringBuilder.Append(playerControllerId);
-        combat.playerName += _stringBuilder.ToString();
+        nameComponent.Name += _stringBuilder.ToString();
     }
 
 }

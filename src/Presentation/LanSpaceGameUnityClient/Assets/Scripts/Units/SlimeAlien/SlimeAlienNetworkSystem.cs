@@ -74,9 +74,12 @@ namespace Assets.Scripts.Units.SlimeAlien
                 var combat = collided.gameObject.GetComponent<Combat>();
                 combat.TakeDamage(10);
 
-                slimeAlien.SetActive(false);
+                // Прячем моба у клиентов
+                slimeAlien.GetComponent<Combat>().RpcSetActive(false);
+
                 //slimeAlien.GetComponent<Combat>().TakeDamage(1000);
                 var audioSource = slimeAlien.GetComponent<AudioSource>().clip;
+
                 AudioSource.PlayClipAtPoint(audioSource, slimeAlien.transform.position);
             }
         }

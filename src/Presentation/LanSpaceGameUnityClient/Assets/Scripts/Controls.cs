@@ -80,6 +80,7 @@ public class Controls : NetworkBehaviour
         {
             SpaceManager.Reset();
             //Debug.Log("CmdDoFire");
+            //CmdFire(transform.position);
             CmdDoFire(transform.position, GetComponent<Rigidbody2D>().rotation);
         }
 
@@ -122,7 +123,9 @@ public class Controls : NetworkBehaviour
     [Command]
     void CmdDoFire(Vector3 pos, float rotation)
     {
-        Debug.Log("CmdDoFire invoke:" + SpaceManager.Now());
+        //Debug.Log("CmdDoFire invoke:" + SpaceManager.Now());
+
+
         GameObject bullet = (GameObject)Instantiate(
             bulletPrefab,
             pos + transform.right,
@@ -132,6 +135,20 @@ public class Controls : NetworkBehaviour
         bullet2D.velocity = bullet2D.transform.right * bulletSpeed;
         Destroy(bullet, 2.0f);
 
+        NetworkServer.Spawn(bullet);
+    }
+
+    [Command]
+    void CmdFire(Vector3 direction)
+    {
+        //TODO: add owner? need object references!
+        GameObject bullet = (GameObject)GameObject.Instantiate(bulletPrefab, transform.position + direction, Quaternion.identity);
+        bullet.GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
+        bullet.GetComponent<Rigidbody2D>().velocity += (Vector2)(direction) * 10;
+        //bullet.GetComponent<Bullet>().Config(gameObject, damage, bounce, bulletLifetime);
+
+
+        //ClientScene.SpawnClientObject(bullet, 0);
         NetworkServer.Spawn(bullet);
     }
 
