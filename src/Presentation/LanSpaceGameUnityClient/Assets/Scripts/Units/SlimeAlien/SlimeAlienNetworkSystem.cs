@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Target;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,10 +12,20 @@ namespace Assets.Scripts.Units.SlimeAlien
 
         [SerializeField] private GameObject _slimeAlienPrefab;
 
-        private readonly Dictionary<GameObject, SlimeAlienUnit> _aliensPool = new Dictionary<GameObject, SlimeAlienUnit>();
+        private readonly Dictionary<GameObject, TargetComponent> _aliensPool = new Dictionary<GameObject, TargetComponent>();
 
-        [SerializeField] private int _aliensNumber = 10;
+        [SerializeField] private int _aliensNumber = 4;
         [SerializeField] private int _spawnSpread = 25;
+
+        // TODO: Пока грешу синглтонами
+        public static SlimeAlienNetworkSystem Singleton { get; private set; }
+        private void Awake()
+        {
+            if (Singleton == null)
+            {
+                Singleton = this;
+            }
+        }
 
         void FixedUpdate()
         {
@@ -26,9 +37,9 @@ namespace Assets.Scripts.Units.SlimeAlien
 
                 //Debug.Log(_className + " | FixedUpdate | " + alien.Key.GetInstanceID());
 
-                if (alien.Value.PlayerTarget != null)
+                if (alien.Value.Target != null)
                 {
-                    Vector2 diff = (Vector2)(alien.Value.PlayerTarget.transform.position - alien.Value.transform.position).normalized;
+                    Vector2 diff = (Vector2)(alien.Value.Target.transform.position - alien.Value.transform.position).normalized;
 
                     alien.Key.GetComponent<Rigidbody2D>().AddForce(diff * Time.fixedDeltaTime * 20);
                 }
@@ -55,32 +66,20 @@ namespace Assets.Scripts.Units.SlimeAlien
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(alien.Key.transform.position, 20);
                 foreach (var collider in colliders)
                 {
-                    var controls = collider.gameObject.GetComponent<Controls>();
-                    if (controls != null)
+                    if (collider.CompareTag("Player"))
                     {
-                        alien.Value.PlayerTarget = collider.gameObject;
+                        //Debug.Log(_className + " | TARGET ON PLAYER");
+                        alien.Value.Target = collider.gameObject;
                         break;
                     }
+                    //var controls = collider.gameObject.GetComponent<Controls>();
+                    //if (controls != null)
+                    //{
+                    //    alien.Value.Target = collider.gameObject;
+                    //    break;
+                    //}
                 }
-            }
-        }
 
-        public void OnCollision(Collision2D collided, GameObject slimeAlien)
-        {
-            var controls = collided.gameObject.GetComponent<Controls>();
-            if (controls != null)
-            {
-                // hit a player
-                var combat = collided.gameObject.GetComponent<Combat>();
-                combat.TakeDamage(10);
-
-                // Прячем моба у клиентов
-                slimeAlien.GetComponent<Combat>().RpcSetActive(false);
-
-                //slimeAlien.GetComponent<Combat>().TakeDamage(1000);
-                var audioSource = slimeAlien.GetComponent<AudioSource>().clip;
-
-                AudioSource.PlayClipAtPoint(audioSource, slimeAlien.transform.position);
             }
         }
 
@@ -99,10 +98,9 @@ namespace Assets.Scripts.Units.SlimeAlien
                     Random.Range(-_spawnSpread, _spawnSpread));
 
                 var gameObject = (GameObject)Instantiate(_slimeAlienPrefab, position, Quaternion.identity);
-                var slimeAlien = gameObject.GetComponent<SlimeAlienUnit>();
-                slimeAlien.SlimeAlienNetworkSystem = this;
+                var targetComponent = gameObject.GetComponent<TargetComponent>();
 
-                _aliensPool.Add(gameObject, slimeAlien);
+                _aliensPool.Add(gameObject, targetComponent);
 
                 NetworkServer.Spawn(gameObject);
             }

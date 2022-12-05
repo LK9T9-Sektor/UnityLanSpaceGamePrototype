@@ -72,7 +72,8 @@ public class SpaceManager : NetworkManager
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
         Vector3 spawnPos = Vector3.right * conn.connectionId;
-        GameObject player = (GameObject)Instantiate(base.playerPrefab, spawnPos, Quaternion.identity);
+        // , Quaternion.Euler(new Vector3(0, 0, 90)));
+        GameObject player = (GameObject)Instantiate(base.playerPrefab, spawnPos, Quaternion.Euler(new Vector3(0, 0, 90)));
 
         SetPlayerNameWithConnId(player, playerControllerId);
 

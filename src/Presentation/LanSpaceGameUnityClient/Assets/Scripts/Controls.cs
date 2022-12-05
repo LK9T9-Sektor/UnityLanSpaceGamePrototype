@@ -22,8 +22,7 @@ public class Controls : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (!isLocalPlayer)
-            return;
+        if (!isLocalPlayer) return;
 
         GetMovement();
 
@@ -124,7 +123,6 @@ public class Controls : NetworkBehaviour
     void CmdDoFire(Vector3 pos, float rotation)
     {
         //Debug.Log("CmdDoFire invoke:" + SpaceManager.Now());
-
 
         GameObject bullet = (GameObject)Instantiate(
             bulletPrefab,

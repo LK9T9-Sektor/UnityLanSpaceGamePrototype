@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
                 // TODO: Корабли переходят на сцену либо сцена не загружается
                 //UnityEngine.SceneManagement.SceneManager.LoadScene(0);
                 //Application.LoadLevel(0);
-                UnityEngine.Networking.NetworkManager.singleton.ServerChangeScene("menu");
+                UnityEngine.Networking.NetworkManager.singleton.ServerChangeScene("Main");
             }
         }
         else

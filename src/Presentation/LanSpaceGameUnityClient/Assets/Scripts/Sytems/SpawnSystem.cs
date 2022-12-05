@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Assets.Scripts.Name;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -24,11 +25,11 @@ namespace Assets.Scripts.Sytems
 
         private void SetPlayerNameWithConnId(GameObject player, short playerControllerId)
         {
-            var combat = player.GetComponent<Combat>();
+            var nameComponent = player.GetComponent<NameComponent>();
 
             _stringBuilder.Append(" №");
             _stringBuilder.Append(playerControllerId);
-            combat.playerName += _stringBuilder.ToString();
+            nameComponent.Name += _stringBuilder.ToString();
         }
 
     }

@@ -52,13 +52,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Bullet.cs" />
-    <Compile Include="Assets\Scripts\ChatSystem.cs" />
-    <Compile Include="Assets\Scripts\Combat.cs" />
+    <Compile Include="Assets\Scripts\Audio\AudioSystem.cs" />
+    <Compile Include="Assets\Scripts\Units\Consumables\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Chat\ChatSystem.cs" />
+    <Compile Include="Assets\Scripts\Collision\CollisionBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Collision\CollisionSystem.cs" />
+    <Compile Include="Assets\Scripts\Collision\Collision2DProcessor.cs" />
+    <Compile Include="Assets\Scripts\Combat\CombatStatsComponent.cs" />
+    <Compile Include="Assets\Scripts\Combat\CombatSystem.cs" />
     <Compile Include="Assets\Scripts\Game\IGameSystem.cs" />
-    <Compile Include="Assets\Scripts\Health\DamageSystem.cs" />
-    <Compile Include="Assets\Scripts\Health\HealthComponent.cs" />
+    <Compile Include="Assets\Scripts\Health\HealthBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Health\HealthConditionProcessor.cs" />
+    <Compile Include="Assets\Scripts\Lifecycle\LifecycleBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Lifecycle\LifecycleProcessor.cs" />
+    <Compile Include="Assets\Scripts\Movement\ArcadeMovement.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementComponent.cs" />
+    <Compile Include="Assets\Scripts\Movement\TopDown2DMovement.cs" />
+    <Compile Include="Assets\Scripts\Name\NameComponent.cs" />
     <Compile Include="Assets\Scripts\Rotation\RotationComponent.cs" />
     <Compile Include="Assets\Scripts\Controls.cs" />
     <Compile Include="Assets\Scripts\PowerUpFeature\PowerUpData.cs" />
@@ -72,7 +82,7 @@
     <Compile Include="Assets\Scripts\Sytems\RespawnSystem.cs" />
     <Compile Include="Assets\Scripts\Rotation\RotationSystem.cs" />
     <Compile Include="Assets\Scripts\Sytems\SpawnSystem.cs" />
-    <Compile Include="Assets\Scripts\Units\SlimeAlien\SlimeAlienUnit.cs" />
+    <Compile Include="Assets\Scripts\Target\TargetComponent.cs" />
     <Compile Include="Assets\Scripts\Units\SlimeAlien\SlimeAlienSpawner.cs" />
     <Compile Include="Assets\Scripts\SpaceManager.cs" />
     <Compile Include="Assets\Scripts\Units\SlimeAlien\SlimeAlienNetworkSystem.cs" />
