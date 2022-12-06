@@ -73,7 +73,7 @@ public class SpaceManager : NetworkManager
     {
         Vector3 spawnPos = Vector3.right * conn.connectionId;
         // , Quaternion.Euler(new Vector3(0, 0, 90)));
-        GameObject player = (GameObject)Instantiate(base.playerPrefab, spawnPos, Quaternion.Euler(new Vector3(0, 0, 90)));
+        GameObject player = (GameObject)Instantiate(base.playerPrefab, spawnPos, Quaternion.Euler(new Vector3(0, 0, 0)));
 
         SetPlayerNameWithConnId(player, playerControllerId);
 

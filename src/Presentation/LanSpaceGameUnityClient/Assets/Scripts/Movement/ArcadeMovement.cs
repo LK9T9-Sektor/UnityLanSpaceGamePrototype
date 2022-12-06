@@ -21,19 +21,19 @@ namespace Assets.Scripts.Movement
 
             if (Input.GetKey(KeyCode.W))
             {
-                transform.position -= transform.up * Time.deltaTime * movementSpeed;
+                transform.position += transform.up * Time.deltaTime * movementSpeed;
             }
             else if (Input.GetKey(KeyCode.S))
             {
-                transform.position += transform.up * Time.deltaTime * movementSpeed;
+                transform.position -= transform.up * Time.deltaTime * movementSpeed;
             }
             if (Input.GetKey(KeyCode.A))
             {
-                transform.Rotate(0, 0, Time.deltaTime * movementSpeed * -rotateSpeed);
+                transform.Rotate(0, 0, Time.deltaTime * movementSpeed * rotateSpeed);
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                transform.Rotate(0, 0, Time.deltaTime * movementSpeed * rotateSpeed);
+                transform.Rotate(0, 0, Time.deltaTime * movementSpeed * -rotateSpeed);
             }
 
             // center camera..
