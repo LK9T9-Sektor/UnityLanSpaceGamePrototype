@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Movement;
 using Assets.Scripts.Rotation;
+using Assets.Scripts.Weapons;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
@@ -22,6 +23,12 @@ namespace Assets.Scripts.States
             get { return _rotationComponents.AsReadOnly(); }
         }
 
+        private readonly List<WeaponBehaviour> _weaponBehaviours = new List<WeaponBehaviour>();
+        public ReadOnlyCollection<WeaponBehaviour> Weapons
+        {
+            get { return _weaponBehaviours.AsReadOnly(); }
+        }
+
 
         public void Add(GameObject gameObject)
         {
@@ -31,11 +38,17 @@ namespace Assets.Scripts.States
             if (movementComponent != null) { _movementComponents.Add(movementComponent); }
 
             var rotationComponent = gameObject.GetComponent<RotationComponent>();
-            Debug.Log(_className + " | rotationComponent: " + rotationComponent);
             if (rotationComponent != null)
             { 
                 _rotationComponents.Add(rotationComponent);
-                Debug.Log(_className + " | rotationComponent ADD" + rotationComponent);
+                //Debug.Log(_className + " | rotationComponent ADD" + rotationComponent);
+            }
+
+            var weaponBehaviour = gameObject.GetComponent<WeaponBehaviour>();
+            if (weaponBehaviour != null)
+            {
+                _weaponBehaviours.Add(weaponBehaviour);
+                Debug.Log(_className + " | weaponBehaviour ADD" + weaponBehaviour);
             }
         }
     

@@ -8,6 +8,7 @@ namespace Assets.Scripts.Lifecycle
     public class LifecycleBehaviour : NetworkBehaviour
     {
         public bool CanRespawn = false;
+        public float RespawnTime = 0.25f;
 
         // TODO: DRY, make class with fields
         // ActionPrefab

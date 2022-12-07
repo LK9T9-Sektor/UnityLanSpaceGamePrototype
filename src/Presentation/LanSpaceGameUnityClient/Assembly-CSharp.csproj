@@ -1,12 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{B7A7EAD8-F5D8-D489-9D50-925182AB2915}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -38,57 +37,61 @@
     <Reference Include="System.XML" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="UnityEditor">
-      <HintPath>Dependencies/UnityEditor.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>Dependencies/UnityEngine.dll</HintPath>
+      <HintPath>D:/Program Files/Unity5.4.0f3/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Dependencies/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Dependencies/UnityEngine.Networking.dll</HintPath>
+    <Reference Include="UnityEditor">
+      <HintPath>D:/Program Files/Unity5.4.0f3/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Audio\AudioSystem.cs" />
-    <Compile Include="Assets\Scripts\Units\Consumables\Bullet.cs" />
-    <Compile Include="Assets\Scripts\Chat\ChatSystem.cs" />
-    <Compile Include="Assets\Scripts\Collision\CollisionBehaviour.cs" />
-    <Compile Include="Assets\Scripts\Collision\CollisionSystem.cs" />
-    <Compile Include="Assets\Scripts\Collision\Collision2DProcessor.cs" />
-    <Compile Include="Assets\Scripts\Combat\CombatStatsComponent.cs" />
-    <Compile Include="Assets\Scripts\Combat\CombatSystem.cs" />
-    <Compile Include="Assets\Scripts\Game\IGameSystem.cs" />
-    <Compile Include="Assets\Scripts\Health\HealthBehaviour.cs" />
-    <Compile Include="Assets\Scripts\Health\HealthConditionProcessor.cs" />
-    <Compile Include="Assets\Scripts\Lifecycle\LifecycleBehaviour.cs" />
-    <Compile Include="Assets\Scripts\Lifecycle\LifecycleProcessor.cs" />
-    <Compile Include="Assets\Scripts\Movement\ArcadeMovement.cs" />
-    <Compile Include="Assets\Scripts\Movement\MovementComponent.cs" />
-    <Compile Include="Assets\Scripts\Movement\TopDown2DMovement.cs" />
-    <Compile Include="Assets\Scripts\Name\NameComponent.cs" />
-    <Compile Include="Assets\Scripts\Rotation\RotationComponent.cs" />
-    <Compile Include="Assets\Scripts\Controls.cs" />
-    <Compile Include="Assets\Scripts\PowerUpFeature\PowerUpData.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\PowerUpFeature\PowerUpNetworkSystem.cs" />
-    <Compile Include="Assets\Scripts\ScrollRectExtension.cs" />
-    <Compile Include="Assets\Scripts\Game\ComponentsContainer.cs" />
-    <Compile Include="Assets\Scripts\Game\GameWorldHandler.cs" />
-    <Compile Include="Assets\Scripts\Movement\MovementSystem.cs" />
-    <Compile Include="Assets\Scripts\Game\SystemsContainer.cs" />
-    <Compile Include="Assets\Scripts\Sytems\RespawnSystem.cs" />
-    <Compile Include="Assets\Scripts\Rotation\RotationSystem.cs" />
-    <Compile Include="Assets\Scripts\Sytems\SpawnSystem.cs" />
-    <Compile Include="Assets\Scripts\Target\TargetComponent.cs" />
-    <Compile Include="Assets\Scripts\Units\SlimeAlien\SlimeAlienSpawner.cs" />
-    <Compile Include="Assets\Scripts\SpaceManager.cs" />
-    <Compile Include="Assets\Scripts\Units\SlimeAlien\SlimeAlienNetworkSystem.cs" />
-    <Compile Include="Assets\Scripts\Views\MainView.cs" />
+     <Compile Include="Assets\Scripts\Audio\AudioSystem.cs" />
+     <Compile Include="Assets\Scripts\Chat\ChatSystem.cs" />
+     <Compile Include="Assets\Scripts\Collision\Collision2DProcessor.cs" />
+     <Compile Include="Assets\Scripts\Collision\CollisionBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Collision\CollisionSystem.cs" />
+     <Compile Include="Assets\Scripts\Combat\CombatStatsComponent.cs" />
+     <Compile Include="Assets\Scripts\Combat\CombatSystem.cs" />
+     <Compile Include="Assets\Scripts\Controls.cs" />
+     <Compile Include="Assets\Scripts\Game\ComponentsContainer.cs" />
+     <Compile Include="Assets\Scripts\Game\GameWorldHandler.cs" />
+     <Compile Include="Assets\Scripts\Game\IGameSystem.cs" />
+     <Compile Include="Assets\Scripts\Game\SystemsContainer.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Health\HealthBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Health\HealthConditionProcessor.cs" />
+     <Compile Include="Assets\Scripts\Lifecycle\LifecycleBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Lifecycle\LifecycleProcessor.cs" />
+     <Compile Include="Assets\Scripts\Movement\ArcadeMovement.cs" />
+     <Compile Include="Assets\Scripts\Movement\MovementComponent.cs" />
+     <Compile Include="Assets\Scripts\Movement\MovementSystem.cs" />
+     <Compile Include="Assets\Scripts\Movement\TopDown2DMovement.cs" />
+     <Compile Include="Assets\Scripts\Name\NameComponent.cs" />
+     <Compile Include="Assets\Scripts\PowerUpFeature\PowerUpData.cs" />
+     <Compile Include="Assets\Scripts\PowerUpFeature\PowerUpNetworkSystem.cs" />
+     <Compile Include="Assets\Scripts\Projectile\ProjectileBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Projectile\ProjectileSystem.cs" />
+     <Compile Include="Assets\Scripts\Rotation\RotationComponent.cs" />
+     <Compile Include="Assets\Scripts\Rotation\RotationSystem.cs" />
+     <Compile Include="Assets\Scripts\ScrollRectExtension.cs" />
+     <Compile Include="Assets\Scripts\SpaceManager.cs" />
+     <Compile Include="Assets\Scripts\Sytems\RespawnSystem.cs" />
+     <Compile Include="Assets\Scripts\Sytems\SpawnSystem.cs" />
+     <Compile Include="Assets\Scripts\Target\TargetComponent.cs" />
+     <Compile Include="Assets\Scripts\Units\Consumables\Bullet.cs" />
+     <Compile Include="Assets\Scripts\Units\SlimeAlien\SlimeAlienNetworkSystem.cs" />
+     <Compile Include="Assets\Scripts\Units\SlimeAlien\SlimeAlienSpawner.cs" />
+     <Compile Include="Assets\Scripts\Views\MainView.cs" />
+     <Compile Include="Assets\Scripts\Weapons\WeaponBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Weapons\WeaponData.cs" />
+     <Compile Include="Assets\Scripts\Weapons\WeaponSystem.cs" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>D:/Program Files/Unity5.4.0f3/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>D:/Program Files/Unity5.4.0f3/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -97,4 +100,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>

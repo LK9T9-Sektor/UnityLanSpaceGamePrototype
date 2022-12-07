@@ -68,27 +68,6 @@ public class Controls : NetworkBehaviour
         }
     }
 
-    void Update()
-    {
-        if (!isLocalPlayer)
-            return;
-
-        // fire
-        //if (Input.GetKeyDown(KeyCode.Space))
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            SpaceManager.Reset();
-            //Debug.Log("CmdDoFire");
-            //CmdFire(transform.position);
-            CmdDoFire(transform.position, GetComponent<Rigidbody2D>().rotation);
-        }
-
-        // center camera..
-        Vector3 pos = transform.position;
-        pos.z = -10;
-        Camera.main.transform.position = pos;
-    }
-
     void DoThrust(int newThrust, int newSpin)
     {
         // turn thrusters on and off
@@ -118,38 +97,6 @@ public class Controls : NetworkBehaviour
         this.thrusting = newThrust;
         this.spin = newSpin;
     }
-
-    [Command]
-    void CmdDoFire(Vector3 pos, float rotation)
-    {
-        //Debug.Log("CmdDoFire invoke:" + SpaceManager.Now());
-
-        GameObject bullet = (GameObject)Instantiate(
-            bulletPrefab,
-            pos + transform.right,
-            Quaternion.Euler(0, 0, rotation));
-
-        var bullet2D = bullet.GetComponent<Rigidbody2D>();
-        bullet2D.velocity = bullet2D.transform.right * bulletSpeed;
-        Destroy(bullet, 2.0f);
-
-        NetworkServer.Spawn(bullet);
-    }
-
-    [Command]
-    void CmdFire(Vector3 direction)
-    {
-        //TODO: add owner? need object references!
-        GameObject bullet = (GameObject)GameObject.Instantiate(bulletPrefab, transform.position + direction, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
-        bullet.GetComponent<Rigidbody2D>().velocity += (Vector2)(direction) * 10;
-        //bullet.GetComponent<Bullet>().Config(gameObject, damage, bounce, bulletLifetime);
-
-
-        //ClientScene.SpawnClientObject(bullet, 0);
-        NetworkServer.Spawn(bullet);
-    }
-
 
     /*
 	public override void OnDeSerializeVars(NetworkReader reader, int channelId, bool initialState)

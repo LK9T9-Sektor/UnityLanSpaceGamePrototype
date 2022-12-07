@@ -10,8 +10,12 @@ namespace Assets.Scripts.Movement
         public float movementSpeed = 2.5f;
         public float rotateSpeed = 30f;
 
+        private Transform _transform;
+
         void Start()
         {
+            _transform = transform;
+
             Debug.Log(GetType().ToString());
         }
 
@@ -21,23 +25,23 @@ namespace Assets.Scripts.Movement
 
             if (Input.GetKey(KeyCode.W))
             {
-                transform.position += transform.up * Time.deltaTime * movementSpeed;
+                _transform.position += _transform.up * Time.deltaTime * movementSpeed;
             }
             else if (Input.GetKey(KeyCode.S))
             {
-                transform.position -= transform.up * Time.deltaTime * movementSpeed;
+                _transform.position -= _transform.up * Time.deltaTime * movementSpeed;
             }
             if (Input.GetKey(KeyCode.A))
             {
-                transform.Rotate(0, 0, Time.deltaTime * movementSpeed * rotateSpeed);
+                _transform.Rotate(0, 0, Time.deltaTime * movementSpeed * rotateSpeed);
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                transform.Rotate(0, 0, Time.deltaTime * movementSpeed * -rotateSpeed);
+                _transform.Rotate(0, 0, Time.deltaTime * movementSpeed * -rotateSpeed);
             }
 
             // center camera..
-            Vector3 pos = transform.position;
+            Vector3 pos = _transform.position;
             pos.z = -10;
             Camera.main.transform.position = pos;
         }

@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Game;
-using UnityEngine;
 
 namespace Assets.Scripts.Rotation
 {
