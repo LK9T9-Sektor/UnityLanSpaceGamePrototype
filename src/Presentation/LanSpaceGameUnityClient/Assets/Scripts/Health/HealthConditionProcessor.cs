@@ -25,7 +25,7 @@ namespace Assets.Scripts.Health
 
             if (healthComponent.HP > 0)
             {
-                healthComponent.HP -= damage;
+                healthComponent.ApplyDamage(damage);
             }
 
             if (healthComponent.HP < 0)
@@ -43,6 +43,7 @@ namespace Assets.Scripts.Health
                     }
                 }
             }
+
         }
 
     }

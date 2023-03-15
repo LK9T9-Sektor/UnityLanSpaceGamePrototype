@@ -1,11 +1,9 @@
-﻿using Assets.Scripts.Name;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class SpaceManager : NetworkManager
+public class SpaceManager
 {
     static SpaceManager single;
 
@@ -67,40 +65,6 @@ public class SpaceManager : NetworkManager
             single.rtts.RemoveAt(0);
 
         return single.last;
-    }
-
-    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
-    {
-        Vector3 spawnPos = Vector3.right * conn.connectionId;
-        // , Quaternion.Euler(new Vector3(0, 0, 90)));
-        // , Quaternion.Euler(new Vector3(0, 0, 0)));
-        GameObject player = (GameObject)Instantiate(base.playerPrefab, spawnPos, Quaternion.Euler(new Vector3(0, 0, 0)));
-
-        SetPlayerNameWithConnId(player, playerControllerId);
-
-        NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
-    }
-
-    // Menu Scene Button OnClick
-    public void StartGame()
-    {
-        singleton.StartHost();
-    }
-
-    public void JoinGame()
-    {
-        singleton.StartClient();
-    }
-
-    private readonly StringBuilder _stringBuilder = new StringBuilder();
-
-    private void SetPlayerNameWithConnId(GameObject player, short playerControllerId)
-    {
-        var nameComponent = player.GetComponent<NameComponent>();
-
-        _stringBuilder.Append("Player №");
-        _stringBuilder.Append(playerControllerId);
-        nameComponent.Name += _stringBuilder.ToString();
     }
 
 }

@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Health\HealthBehaviour.cs" />
      <Compile Include="Assets\Scripts\Health\HealthConditionProcessor.cs" />
+     <Compile Include="Assets\Scripts\Lan\LanSystem.cs" />
      <Compile Include="Assets\Scripts\Lifecycle\LifecycleBehaviour.cs" />
      <Compile Include="Assets\Scripts\Lifecycle\LifecycleProcessor.cs" />
      <Compile Include="Assets\Scripts\Movement\ArcadeMovement.cs" />

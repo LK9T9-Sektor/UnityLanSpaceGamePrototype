@@ -19,7 +19,7 @@ namespace Assets.Scripts.Game
 
         private void Update()
         {
-            foreach (var system in Systems.Systems)
+            foreach (var system in Systems.RunnableSystems)
             {
                 system.Run();
             }

@@ -9,19 +9,56 @@ namespace Assets.Scripts.Projectile
         public float Speed;
         public int Damage;
         public float Lifetime;
-        //public GameObject Prefab;
+        //public GameObject ProjectilePrefab;
 
         public void SetDamage(int damage)
         {
             Damage = damage;
         }
 
+        /// <summary>
+        /// Вызывается клиентом (Client), исполняется на сервере (Host).
+        /// </summary>
         [Command]
-        public void CmdLaunchProjectile(GameObject gameObject)
+        public void CmdLaunchProjectile()
         {
             Debug.Log("CmdLaunchProjectile".ToUpper());
             Destroy(gameObject, Lifetime);
 
+            NetworkServer.SpawnWithClientAuthority(gameObject, connectionToClient);
+            //NetworkServer.Spawn(gameObject);
+        }
+
+        /// <summary>
+        /// Вызывается клиентом (Client), исполняется на сервере (Host).
+        /// </summary>
+        [Command]
+        public void CmdSpawnProjectile(
+            GameObject projectilePrefab, 
+            Vector3 position, 
+            float rotation)
+        {
+            Debug.Log("CmdSpawnProjectile".ToUpper());
+
+            GameObject projectile = (GameObject)Instantiate(
+                projectilePrefab,
+                position,
+                Quaternion.Euler(0, 0, rotation));
+
+            //NetworkServer.SpawnWithClientAuthority(projectile, connectionToClient);
+            NetworkServer.Spawn(projectile);
+        }
+
+
+        /// <summary>
+        /// Вызывается сервером, исполняется на клиентах.
+        /// Не вызывать из клиента!
+        /// </summary>
+        /// <param name="active"></param>
+        [ClientRpc]
+        public void RpcLaunchProjectile()
+        {
+            Debug.Log("CmdLaunchProjectile".ToUpper());
             NetworkServer.Spawn(gameObject);
         }
 

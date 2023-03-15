@@ -85,7 +85,7 @@ namespace Assets.Scripts.Units.SlimeAlien
 
         public override void OnStartServer()
         {
-            Spawn();
+            //Spawn();
         }
 
         private void Spawn()

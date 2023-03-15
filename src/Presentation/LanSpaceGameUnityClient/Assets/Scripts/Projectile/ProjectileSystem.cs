@@ -1,12 +1,11 @@
-﻿using Assets.Scripts.Rotation;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Assets.Scripts.Projectile
 {
     public class ProjectileSystem : NetworkBehaviour
     {
-        private readonly string _className = typeof(RotationSystem).Name;
+        private readonly string _className = typeof(ProjectileSystem).Name;
 
         #region Disgusting Singleton
 
@@ -21,7 +20,7 @@ namespace Assets.Scripts.Projectile
         // Looks like an extension method
         public ProjectileBehaviour GetProjectile(GameObject projectileLauncher, GameObject projectilePrefab)
         {
-            //if (!isLocalPlayer) return null;
+            //if (!projectileLauncher.isLocalPlayer) return null;
 
             Debug.Log(_className + " | GetProjectile");
 
@@ -35,6 +34,15 @@ namespace Assets.Scripts.Projectile
             var projectileBehaviour = projectile.GetComponent<ProjectileBehaviour>();
             var projectileRigidBody2D = projectile.GetComponent<Rigidbody2D>();
             projectileRigidBody2D.velocity = projectileLauncher.transform.up * projectileBehaviour.Speed;
+
+            //projectile.GetComponent<NetworkIdentity>()
+            //    .AssignClientAuthority(projectileLauncher
+            //    .GetComponent<NetworkIdentity>().connectionToClient);
+
+            //projectileBehaviour.CmdLaunchProjectile();
+            //NetworkServer.Spawn(projectile);
+            //NetworkIdentity.AssignClientAuthority();
+            //NetworkServer.SpawnWithClientAuthority(projectile, projectileLauncher);
 
             return projectileBehaviour;
         }

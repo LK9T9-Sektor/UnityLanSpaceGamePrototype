@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Game;
-using Assets.Scripts.Movement;
 using Assets.Scripts.Rotation;
 using Assets.Scripts.Weapons;
 using System.Collections.Generic;
@@ -11,12 +10,13 @@ namespace Assets.Scripts.States
     {
         private readonly List<IGameSystem> _systems = new List<IGameSystem>()
         {
-            new MovementSystem(),
+            new Assets.Scripts.Movement.MovementSystem(),
+            //Assets.Scripts.Movement.MovementSystem.Singleton,
             new RotationSystem(),
             new WeaponSystem(),
         };
 
-        public ReadOnlyCollection<IGameSystem> Systems
+        public ReadOnlyCollection<IGameSystem> RunnableSystems
         {
             get { return _systems.AsReadOnly(); }
         }

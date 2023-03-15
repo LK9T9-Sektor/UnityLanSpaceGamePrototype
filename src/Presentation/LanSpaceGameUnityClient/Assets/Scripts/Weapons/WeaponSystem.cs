@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Game;
-using Assets.Scripts.Projectile;
 using UnityEngine;
 
 namespace Assets.Scripts.Weapons
@@ -15,24 +14,39 @@ namespace Assets.Scripts.Weapons
 
             foreach (var component in GameWorldHandler.Singleton.Components.Weapons)
             {
-                if (!component.isLocalPlayer) { return; }
-                //if (!component.IsLocalPlayer) { return; }
                 //Debug.Log(_className + " | Run");
 
-                //Debug.Log(_className + " | Run | NotLocal");
-                // fire
-                //if (Input.GetKeyDown(KeyCode.Space))
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                // isLocalPlayer will be true if the NetworkPlayer instance is the instance representing
+                // the local machine in the game. Only one NetworkPlayer instance will have
+                // an isLocalPlayer value of true in a running instance of your game. 
+                // Think of this variable as the "me" flag: think "this object is me".
+                if (component.isLocalPlayer)
                 {
-                    Debug.Log(_className + " | Run | Mouse0 KeyDown");
-
-                    var projectile = ProjectileSystem.Singleton.GetProjectile(component.gameObject, component.Prefab);
-                    if (projectile != null)
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
-                        component.CmdLaunchProjectile(projectile.gameObject);
-                        SpaceManager.Reset();
+                        Debug.Log(_className + " | Run | KeyDown.Mouse0");
+
+                        //var projectileBehaviour = ProjectileSystem.Singleton.GetProjectile(component.gameObject, component.ProjectilePrefab);
+
+                        //projectileBehaviour.GetComponent<NetworkIdentity>()
+                        //    .AssignClientAuthority(component
+                        //    .GetComponent<NetworkIdentity>().connectionToClient);
+
+                        component.CmdSpawnProjectile();
+                        //NetworkServer.Spawn(projectileBehaviour);
+                        //NetworkIdentity.AssignClientAuthority();
+                        //NetworkServer.SpawnWithClientAuthority(projectileBehaviour, projectileLauncher);
+
+                        //if (projectileBehaviour != null)
+                        //{
+                        //    component.CmdLaunchProjectile(projectileBehaviour.gameObject);
+                        //projectileBehaviour.CmdLaunchProjectile();
+                        //    SpaceManager.Reset();
+                        //}
+                        // TODO: Call [Command] on a server to Instantiate and Spawn
                     }
                 }
+
             }
         }
 

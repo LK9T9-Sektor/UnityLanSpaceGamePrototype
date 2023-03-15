@@ -1,23 +1,49 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Health
 {
     public class HealthBehaviour : NetworkBehaviour
     {
-        private int _defaultHp;
+        public int DefaultHp;
 
         [SyncVar(hook = "OnHpChange")]
-        public int HP;
+        private int _hp;
+        public int HP
+        { 
+            get
+            {
+                return _hp;
+            }
+        }
+
+        public Image HealthBarImage;
+
+        public RectTransform HPRectTransform;
 
         private void Awake()
         {
-            _defaultHp = HP;
+            HPRectTransform = GetComponent<RectTransform>();
+
+            //HealthBarImage = HPRectTransform.GetComponent<Image>();
+
+            Debug.Log("HealthBarImage: " + HealthBarImage);
+            _hp = DefaultHp;
         }
 
         public void ResetHp()
         {
-            HP = _defaultHp;
+            _hp = DefaultHp;
+            HPRectTransform.sizeDelta = new Vector2(_hp * 2, HPRectTransform.sizeDelta.y);
+        }
+
+        public void ApplyDamage(int damage)
+        {
+            Debug.Log("ApplyDamage: " + damage);
+            _hp -= damage;
+
+            HealthBarImage.fillAmount = Mathf.Clamp(_hp / DefaultHp, 0, 1f);
         }
 
         // called on a client and server-client
@@ -27,7 +53,7 @@ namespace Assets.Scripts.Health
             {
                 //MakeExplosion(0.3f);
             }
-            HP = newHealth;
+            _hp = newHealth;
         }
 
         // work on a server, do nothing on a client
