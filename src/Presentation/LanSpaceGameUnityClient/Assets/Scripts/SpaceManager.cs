@@ -23,9 +23,9 @@ public class SpaceManager
 
     void OnGUI()
     {
-        string ipadress = Network.player.ipAddress;
+        string ipAdress = Network.player.ipAddress;
         GUI.Box(new Rect(10, Screen.height - 25, 200, 25), 
-            "Your IP: " + ipadress
+            "Your IP: " + ipAdress
             + " port: " + Network.player.port);
 
         GUI.Label(new Rect(600, 10, 200, 20), "RTT:" + last + "ms");

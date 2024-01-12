@@ -16,17 +16,72 @@ namespace Assets.Scripts.Projectile
             Damage = damage;
         }
 
+        public void Auth(NetworkIdentity clientId)
+        {
+            if (isServer)
+            {
+                Debug.Log("isServer = true");
+                CmdAssignNetworkAuthority(GetComponent<NetworkIdentity>(), clientId);
+            }
+            else
+            {
+                Debug.Log("isServer = false");
+            }
+        }
+
+        [Command]
+        public void CmdAssignNetworkAuthority(NetworkIdentity cubeId, NetworkIdentity clientId)
+        {
+            //If -> cube has a owner && owner isn't the actual owner
+            if (cubeId.clientAuthorityOwner != null && cubeId.clientAuthorityOwner != clientId.connectionToClient)
+            {
+                Debug.Log("RemoveClientAuthority");
+                // Remove authority
+                cubeId.RemoveClientAuthority(cubeId.clientAuthorityOwner);
+            }
+
+            //If -> cube has no owner
+            if (cubeId.clientAuthorityOwner == null)
+            {
+                Debug.Log("AssignClientAuthority " + clientId.connectionToClient);
+                // Add client as owner
+                cubeId.AssignClientAuthority(clientId.connectionToClient);
+            }
+        }
+
         /// <summary>
         /// Вызывается клиентом (Client), исполняется на сервере (Host).
         /// </summary>
         [Command]
-        public void CmdLaunchProjectile()
+        public void CmdLaunchProjectile(GameObject authGO)
+        {
+            Debug.Log("CmdLaunchProjectile".ToUpper());
+
+            // get the object's network ID
+            var networkIdentity = authGO.GetComponent<NetworkIdentity>();
+            Debug.Log(networkIdentity.connectionToClient);
+
+            gameObject.GetComponent<NetworkIdentity>()
+                .AssignClientAuthority(networkIdentity.connectionToClient);
+            Debug.Log(connectionToClient);
+
+            Destroy(gameObject, Lifetime);
+
+            // Warning: Trying to send command for object without authority.
+            NetworkServer.SpawnWithClientAuthority(gameObject, connectionToClient);
+        }
+
+        /// <summary>
+        /// Вызывается клиентом (Client), исполняется на сервере (Host).
+        /// </summary>
+        [Command]
+        public void CmdLaunchProjectile2()
         {
             Debug.Log("CmdLaunchProjectile".ToUpper());
             Destroy(gameObject, Lifetime);
 
-            NetworkServer.SpawnWithClientAuthority(gameObject, connectionToClient);
-            //NetworkServer.Spawn(gameObject);
+            // Warning: Trying to send command for object without authority.
+            NetworkServer.Spawn(gameObject);
         }
 
         /// <summary>
@@ -34,8 +89,8 @@ namespace Assets.Scripts.Projectile
         /// </summary>
         [Command]
         public void CmdSpawnProjectile(
-            GameObject projectilePrefab, 
-            Vector3 position, 
+            GameObject projectilePrefab,
+            Vector3 position,
             float rotation)
         {
             Debug.Log("CmdSpawnProjectile".ToUpper());
@@ -59,6 +114,7 @@ namespace Assets.Scripts.Projectile
         public void RpcLaunchProjectile()
         {
             Debug.Log("CmdLaunchProjectile".ToUpper());
+            // Warning: ClientRpc call on un-spawned object
             NetworkServer.Spawn(gameObject);
         }
 

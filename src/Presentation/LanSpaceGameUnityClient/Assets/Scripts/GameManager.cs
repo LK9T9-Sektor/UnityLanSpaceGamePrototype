@@ -4,11 +4,11 @@ public class GameManager : MonoBehaviour
 {
     public int score = 0;
 
-    public static GameManager singleton;
+    public static GameManager Singleton;
 
     void Awake()
     {
-        singleton = this;
+        Singleton = this;
     }
 
     public float FPS { get; private set; }

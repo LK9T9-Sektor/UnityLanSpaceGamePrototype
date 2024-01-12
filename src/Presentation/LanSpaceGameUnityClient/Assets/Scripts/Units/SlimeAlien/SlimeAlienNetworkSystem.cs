@@ -19,6 +19,7 @@ namespace Assets.Scripts.Units.SlimeAlien
 
         // TODO: Пока грешу синглтонами
         public static SlimeAlienNetworkSystem Singleton { get; private set; }
+
         private void Awake()
         {
             if (Singleton == null)

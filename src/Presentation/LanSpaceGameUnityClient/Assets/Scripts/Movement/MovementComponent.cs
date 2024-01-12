@@ -30,9 +30,10 @@ namespace Assets.Scripts.Movement
         {
             _handleUpdate = (o) => { MovementSystem.Singleton.Handle(o); };
 
+            Debug.Log("MovementComponent.Start, NetworkBehaviour.isServer: " + isServer);
             Debug.Log("MovementComponent.Start, NetworkBehaviour.isClient: " + isClient);
             Debug.Log("MovementComponent.Start, NetworkBehaviour.isLocalPlayer: " + isLocalPlayer);
-            Debug.Log("MovementComponent.Start, NetworkBehaviour.isServer: " + isServer);
+            Debug.Log("MovementComponent.Start, NetworkBehaviour.hasAuthority: " + hasAuthority);
             Debug.Log("MovementComponent.Start, NetworkBehaviour.netId: " + netId);
             Debug.Log("MovementComponent.Start, NetworkBehaviour.playerControllerId: " + playerControllerId);
             

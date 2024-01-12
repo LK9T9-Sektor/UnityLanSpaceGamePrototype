@@ -74,7 +74,7 @@ namespace Assets.Scripts.Health
         //        }
         //        else
         //        {
-        //            GameManager.singleton.score += 1;
+        //            GameManager.Singleton.score += 1;
         //            // прячем моба у клиентов
         //            RpcSetActive(false);
         //        }

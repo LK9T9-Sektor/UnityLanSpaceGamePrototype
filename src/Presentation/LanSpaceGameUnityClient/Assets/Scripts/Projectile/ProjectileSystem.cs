@@ -48,6 +48,36 @@ namespace Assets.Scripts.Projectile
         }
 
         // Looks like an extension method
+        public GameObject GetProjectileGO(GameObject projectileLauncher, GameObject projectilePrefab)
+        {
+            //if (!projectileLauncher.isLocalPlayer) return null;
+
+            Debug.Log(_className + " | GetProjectile");
+
+            GameObject projectile = (GameObject)Instantiate(
+                projectilePrefab,
+                //new Vector3(projectileLauncher.transform.position.x, projectileLauncher.transform.position.y, 0),
+                //projectileLauncher.transform.rotation);
+                projectileLauncher.transform.position + projectileLauncher.transform.up,
+                Quaternion.Euler(0, 0, projectileLauncher.GetComponent<Rigidbody2D>().rotation));
+
+            var projectileBehaviour = projectile.GetComponent<ProjectileBehaviour>();
+            var projectileRigidBody2D = projectile.GetComponent<Rigidbody2D>();
+            projectileRigidBody2D.velocity = projectileLauncher.transform.up * projectileBehaviour.Speed;
+
+            //projectile.GetComponent<NetworkIdentity>()
+            //    .AssignClientAuthority(projectileLauncher
+            //    .GetComponent<NetworkIdentity>().connectionToClient);
+
+            //projectileBehaviour.CmdLaunchProjectile();
+            //NetworkServer.Spawn(projectile);
+            //NetworkIdentity.AssignClientAuthority();
+            //NetworkServer.SpawnWithClientAuthority(projectile, projectileLauncher);
+
+            return projectile;
+        }
+
+        // Looks like an extension method
         public void CreateProjectile2(GameObject projectileOwner, GameObject projectilePrefab)
         {
             var direction = projectileOwner.transform.position;

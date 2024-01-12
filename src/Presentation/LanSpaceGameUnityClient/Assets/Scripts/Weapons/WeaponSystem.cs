@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Game;
+using Assets.Scripts.Projectile;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts.Weapons
 {
@@ -26,13 +28,40 @@ namespace Assets.Scripts.Weapons
                     {
                         Debug.Log(_className + " | Run | KeyDown.Mouse0");
 
+                        // Рабочий вариант!!!
+                        //component.CmdSpawnProjectile();
+
                         //var projectileBehaviour = ProjectileSystem.Singleton.GetProjectile(component.gameObject, component.ProjectilePrefab);
+                        //var projectile = ProjectileSystem.Singleton.GetProjectileGO(component.gameObject, component.ProjectilePrefab);
+                        //projectile.GetComponent<ProjectileBehaviour>()
+                        //    .Auth(component.gameObject.GetComponent<NetworkIdentity>());
+
+                        component.CmdFire(component.gameObject);
+
+                        //CmdSpawn(
+                        //    component.gameObject,
+                        //    component.ProjectilePrefab);
+
+                        //projectile.GetComponent<ProjectileBehaviour>()
+                        //    .CmdLaunchProjectile(component.gameObject);
+
+                        //var networkConnection = component.gameObject
+                        //    .GetComponent<NetworkIdentity>().connectionToClient;
+                        //Debug.Log(_className + " | NetworkConnection | " + networkConnection);
+
+                        //var networkIdentity = projectile.GetComponent<NetworkIdentity>();
+                        //Debug.Log(_className + " | networkIdentity | " + networkIdentity);
+
+                        //var assigned = networkIdentity.AssignClientAuthority(networkConnection);
+                        //Debug.Log(_className + " | assigned | " + assigned);
+
+                        //projectile.GetComponent<ProjectileBehaviour>()
+                        //    .RpcLaunchProjectile();
 
                         //projectileBehaviour.GetComponent<NetworkIdentity>()
                         //    .AssignClientAuthority(component
                         //    .GetComponent<NetworkIdentity>().connectionToClient);
 
-                        component.CmdSpawnProjectile();
                         //NetworkServer.Spawn(projectileBehaviour);
                         //NetworkIdentity.AssignClientAuthority();
                         //NetworkServer.SpawnWithClientAuthority(projectileBehaviour, projectileLauncher);

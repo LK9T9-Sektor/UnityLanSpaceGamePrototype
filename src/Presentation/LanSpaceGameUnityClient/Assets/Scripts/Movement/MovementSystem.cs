@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Game;
+using Assets.Scripts.Particle;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
@@ -94,6 +95,7 @@ namespace Assets.Scripts.Movement
                     if (Input.GetKey(KeyCode.W))
                     {
                         movementComponent.Transform.position += movementComponent.Transform.up * Time.deltaTime * movementComponent.ForwardSpeed;
+                        Thrust(movementComponent);
                     }
                     else if (Input.GetKey(KeyCode.S))
                     {
@@ -115,6 +117,19 @@ namespace Assets.Scripts.Movement
                 }
                 
             }
+        }
+
+        private void Thrust(MovementComponent movementComponent)
+        {
+            var thrusterBehaviour = movementComponent.gameObject.GetComponent<ThrusterBehaviour>();
+            if (thrusterBehaviour == null ) { return; }
+
+            Debug.Log("thrusterBehaviour is not null");
+
+            thrusterBehaviour.ThrusterOne.Play();
+            thrusterBehaviour.ThrusterTwo.Play();
+
+            //thrusterBehaviour.DoThrust(spin, thrust);
         }
 
     }

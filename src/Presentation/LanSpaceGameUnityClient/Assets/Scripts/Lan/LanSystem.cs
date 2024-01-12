@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Movement;
-using Assets.Scripts.Name;
+﻿using Assets.Scripts.Name;
 using System.Collections;
 using System.Text;
 using UnityEngine;
@@ -9,7 +8,7 @@ namespace Assets.Scripts.Lan
 {
     public class LanSystem : NetworkManager
     {
-        private readonly string _className = typeof(MovementSystem).Name;
+        private readonly string _className = typeof(LanSystem).Name;
 
         #region Disgusting Singleton
 
@@ -43,6 +42,10 @@ namespace Assets.Scripts.Lan
             // , Quaternion.Euler(new Vector3(0, 0, 90)));
             // , Quaternion.Euler(new Vector3(0, 0, 0)));
             GameObject player = (GameObject)Instantiate(base.playerPrefab, spawnPos, Quaternion.Euler(new Vector3(0, 0, 0)));
+            //GameObject player = (GameObject)Network.Instantiate(base.playerPrefab, 
+            //    spawnPos, 
+            //    Quaternion.Euler(new Vector3(0, 0, 0)),
+            //    0);
 
             SetPlayerNameWithConnId(player, playerControllerId);
             _players[player] = player;
